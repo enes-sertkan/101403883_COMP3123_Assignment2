@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 // MongoDB connection URL
-const dbUrl = 'mongodb://localhost:27017/comp3123_assignment1'; // Update with your MongoDB URL
+const dbUrl = 'http://loaclhost/api/v1'; // Update with your MongoDB URL
 
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,

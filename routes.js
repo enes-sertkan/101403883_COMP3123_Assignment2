@@ -12,6 +12,11 @@ router.post('/api/v1/user/signup', async (req, res) => {
         const { username, email, password } = req.body;
 
         // Validate data (e.g., check for required fields)
+        if (!username || !email || !password) {
+            const validationError = new Error('Invalid input data');
+            validationError.statusCode = 400; // Bad Request
+            throw validationError;
+        }
 
         // Hash and encrypt the password
         const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
@@ -30,10 +35,20 @@ router.post('/api/v1/user/signup', async (req, res) => {
         res.status(201).json({ message: 'User created successfully' });
     } catch (error) {
         console.error('Error creating user:', error);
-        // Return an error response
-        res.status(500).json({ message: 'Internal Server Error' });
+
+        // Handle database-specific error here, if needed
+        // For example, if saving to the database fails
+        if (error.name === 'MongoError') {
+            const dbError = new Error('Database error');
+            dbError.statusCode = 500; // Internal Server Error
+            throw dbError;
+        }
+
+        // Return a generic error response if it's not a specific error
+        res.status(error.statusCode || 500).json({ message: error.message || 'Internal Server Error' });
     }
 });
+
 
 
 // Example route for creating a new employee
@@ -257,6 +272,18 @@ router.delete('/api/v1/emp/employees/:eid', async (req, res) => {
     }
 });
 
+// Error handling middleware
+router.use((err, req, res, next) => {
+    console.error(err.stack); // Log the error stack trace for debugging
+
+    // Check if it's a known error with a specific status code and message
+    if (err.statusCode && err.message) {
+        res.status(err.statusCode).json({ status: false, message: err.message });
+    } else {
+        // For unknown errors, return a generic error response
+        res.status(500).json({ status: false, message: 'Internal Server Error' });
+    }
+});
 
 // Other route handlers for your APIs...
 
