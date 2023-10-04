@@ -2,8 +2,8 @@
 
 const mongoose = require('mongoose');
 
-// MongoDB connection URL
-const dbUrl = 'http://loaclhost/api/v1'; // Update with your MongoDB URL
+// MongoDB connection URL (replace with your actual MongoDB URL)
+const dbUrl = 'mongodb://http://localhost:27017/comp3095-mongodb'; // Replace with your MongoDB URL
 
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
@@ -18,3 +18,4 @@ db.once('open', () => {
 });
 
 module.exports = mongoose;
+
