@@ -1,25 +1,25 @@
-// middleware.js
-
-// Import any necessary libraries or modules for validation
-// For example, you might want to use 'express-validator' for validation.
-
-// Middleware function to validate student data
-const validateStudentData = (req, res, next) => {
+// Middleware function to validate employee data
+const validateEmployeeData = (req, res, next) => {
     const { first_name, last_name, email, gender, salary } = req.body;
 
-    // Example: Perform validation checks
     if (!first_name || !last_name || !email || !gender || !salary) {
-        return res.status(400).json({ error: 'Incomplete student data' });
+        return res.status(400).json({ error: 'Incomplete employee data' });
     }
-
-    // You can add more specific validation logic as needed.
-
-    // If validation passes, call 'next()' to pass control to the next middleware or route handler
     next();
 };
 
-// Export the middleware function
+// Middleware function to validate user data
+const validateUserData = (req, res, next) => {
+    const { username, email, password } = req.body;
+
+    if (!username || !password || !email) {
+        return res.status(400).json({ error: 'Incomplete user data' });
+    }
+
+    next();
+};
+
 module.exports = {
-    validateStudentData,
-    // You can export other middleware functions here if needed
+    validateEmployeeData,
+    validateUserData
 };
