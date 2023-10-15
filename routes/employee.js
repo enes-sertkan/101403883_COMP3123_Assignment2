@@ -1,15 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const Employee = require('../models/employeeModel');
+const { validateEmployeeData } = require('../middleware');
 
 // Route to create a new employee
-router.post('/employees', async (req, res) => {
+router.post('/employees', validateEmployeeData, async (req, res) => {
     try {
-
         const newEmployee = new Employee(req.body);
         const savedEmployee = await newEmployee.save();
         res.status(201).json(savedEmployee);
-  
     } catch (error) {
         res.status(400).json({ error: 'Failed to create an employee.' });
     }
@@ -26,8 +25,8 @@ router.get('/employees', async (req, res) => {
 });
 
 // Route to get an employee by ID
-router.get('/employees/:eid', async (req, res) => {
-    const { eid } = req.params;
+router.get('/employees/{eid}', async (req, res) => {
+    const { eid } = req.params.eid;
     try {
         const employee = await Employee.findById(eid);
         if (!employee) {

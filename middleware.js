@@ -21,7 +21,5 @@ const validateUserData = (req, res, next) => {
 
 module.exports = {
     validateEmployeeData,
-    validateUserData,
-    // You can export other middleware functions here if needed
+    validateUserData
 };
-

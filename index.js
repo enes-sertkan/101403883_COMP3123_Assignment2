@@ -13,9 +13,12 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Custom Middleware - Use it before your routes
-app.use(validateUserData);
-app.use(validateEmployeeData);
+// User-specific Middleware
+app.use('/api/v1/user', validateUserData);
+
+// Employee-specific Middleware
+app.use('/api/v1/emp', validateEmployeeData);
+
 
 // db connect
 const dbUrl = 'mongodb+srv://enessertkan:Password123@cluster0.55mfjdg.mongodb.net/?retryWrites=true&w=majority';
