@@ -21,7 +21,7 @@ app.use('/api/v1/emp', validateEmployeeData);
 
 
 // db connect
-const dbUrl = 'mongodb+srv://enessertkan:Password123@cluster0.55mfjdg.mongodb.net/?retryWrites=true&w=majority';
+const dbUrl = 'mongodb+srv://enessertkan:Password123@cluster0.55mfjdg.mongodb.net/comp3123_assignment1';
 
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
