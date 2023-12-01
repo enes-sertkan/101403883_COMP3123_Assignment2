@@ -1,6 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "bootstrap-icons/font/bootstrap-icons.css";
+
+
+const API_BASE_URL = "http://localhost:5000/api/v1/emp/employees";
 
 const AddEmployee = () => {
   const [employee, setEmployee] = useState({
@@ -9,43 +13,30 @@ const AddEmployee = () => {
     password: "",
     salary: "",
     address: "",
-    image: "",
+    image: null,
   });
-  const [category, setCategory] = useState([]);
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/v1/user/category")
-      .then((result) => {
-        if (result.data.Status) {
-          setCategory(result.data.Result);
-        } else {
-          alert(result.data.Error);
-        }
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const formData = new FormData();
-    formData.append('name', employee.name);
-    formData.append('email', employee.email);
-    formData.append('password', employee.password);
-    formData.append('address', employee.address);
-    formData.append('salary', employee.salary);
-    formData.append('image', employee.image);
+    Object.keys(employee).forEach(key => {
+      formData.append(key, employee[key]);
+    });
 
-    axios.post('http://localhost:5000/api/v1/user/add_employee', formData)
-    .then(result => {
-        if(result.data.Status) {
-            navigate('/dashboard/employee')
-        } else {
-            alert(result.data.Error)
-        }
+    axios.post(API_BASE_URL, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
     })
-    .catch(err => console.log(err))
+    .then(result => {
+      if (result.status === 201) {
+        navigate('/dashboard/employee');
+      } else {
+        alert("Failed to add employee");
+      }
+    })
+    .catch(err => console.error('Error adding employee:', err));
   }
 
   return (

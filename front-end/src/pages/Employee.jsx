@@ -1,33 +1,36 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "bootstrap-icons/font/bootstrap-icons.css";
+
+const API_BASE_URL = 'http://localhost:5000/api/v1/emp/'; // Adjust this URL based on your server setup
 
 const Employee = () => {
-  const [employee, setEmployee] = useState([]);
-  const navigate = useNavigate()
+  const [employees, setEmployees] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // Fetch all employees
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/v1/user/employee")
-      .then((result) => {
-        if (result.data.Status) {
-          setEmployee(result.data.Result);
-        } else {
-          alert(result.data.Error);
-        }
+    axios.get(`${API_BASE_URL}employees`)
+      .then(response => {
+        setEmployees(response.data);
+        setLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch(error => console.error('Error fetching employees:', error));
   }, []);
-  const handleDelete = (id) => {
-    axios.delete('http://localhost:5000/api/v1/user/delete_employee/'+id)
-    .then(result => {
-        if(result.data.Status) {
-            window.location.reload()
-        } else {
-            alert(result.data.Error)
-        }
-    })
-  } 
+
+  // Delete an employee
+  const deleteEmployee = (employeeId) => {
+    axios.delete(`${API_BASE_URL}employees?eid=${employeeId}`)
+      .then(response => {
+        // Refresh the employee list or update the state directly
+        setEmployees(employees.filter(e => e.id !== employeeId));
+      })
+      .catch(error => console.error('Error deleting employee:', error));
+  };
+
+  if (loading) return <div>Loading...</div>;
+
   return (
     <div className="px-5 mt-3">
       <div className="d-flex justify-content-center">
@@ -49,13 +52,14 @@ const Employee = () => {
             </tr>
           </thead>
           <tbody>
-            {employee.map((e) => (
-              <tr>
+            {employees.map((e) => (
+              <tr key={e.id}>
                 <td>{e.name}</td>
                 <td>
                   <img
-                    src={`http://localhost5000/api/v1/user/Images/` + e.image}
+                    src={`${API_BASE_URL}Images/${e.image}`}
                     className="employee_image"
+                    alt={e.name}
                   />
                 </td>
                 <td>{e.email}</td>
@@ -63,14 +67,14 @@ const Employee = () => {
                 <td>{e.salary}</td>
                 <td>
                   <Link
-                    to={`/dashboard/edit_employee/` + e.id}
+                    to={`/dashboard/edit_employee/${e.id}`}
                     className="btn btn-info btn-sm me-2"
                   >
                     Edit
                   </Link>
                   <button
                     className="btn btn-warning btn-sm"
-                    onClick={() => handleDelete(e.id)}
+                    onClick={() => deleteEmployee(e.id)}
                   >
                     Delete
                   </button>
