@@ -23,8 +23,8 @@ function App() {
         <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>}>
           {/* Nested routes within dashboard */}
           <Route index element={<Employee />} />
-          <Route path='add_employee' element={<AddEmployee />} /> {/* Remove 'dashboard/' prefix */}
-          <Route path='edit_employee/:id' element={<EditEmployee />} /> {/* Remove 'dashboard/' prefix */}
+          <Route path='add_employee' element={<AddEmployee />} /> {/* Removed 'dashboard/' */}
+          <Route path='edit_employee/:id' element={<EditEmployee />} /> {/* Removed 'dashboard/' */}
         </Route>
       </Routes>
     </BrowserRouter>

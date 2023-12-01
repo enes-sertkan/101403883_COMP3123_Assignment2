@@ -16,7 +16,7 @@ const Dashboard = () => {
 
   const fetchEmployees = () => {
     // Replace with your actual API URL to fetch employees
-    axios.get('http://localhost:3000/api/v1/user/dashboard')
+    axios.get('http://localhost:5000/api/v1/emp/employees')
       .then(response => {
         setEmployees(response.data);
       })
@@ -27,7 +27,7 @@ const Dashboard = () => {
 
   const handleDelete = (employeeId) => {
     // Replace with your actual API URL to delete an employee
-    axios.delete(`http://localhost:3000/api/v1/user/dashboard/employees/${employeeId}`)
+    axios.delete(`http://localhost:5000/api/v1/emp/employees/${employeeId}`)
       .then(() => {
         // Remove deleted employee from state
         setEmployees(employees.filter(employee => employee.id !== employeeId));
@@ -39,7 +39,7 @@ const Dashboard = () => {
 
   const handleLogout = () => {
     // Make an API call to logout the user
-    axios.post('http://localhost:3000/api/v1/user/logout')
+    axios.post('http://localhost:5000/api/v1/user/logout')
       .then(() => {
         // Clear user data from local storage or state management
         localStorage.removeItem('userToken'); // Example, adjust based on how you store the token

@@ -4,40 +4,29 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 
-const API_BASE_URL = "http://localhost:5000/api/v1/emp/employees";
-
 const AddEmployee = () => {
   const [employee, setEmployee] = useState({
-    name: "",
+    firstname: "",
+    lastname: "",
     email: "",
-    password: "",
-    salary: "",
-    address: "",
-    image: null,
-  });
+    salary: "", 
+    gender: "",
+});
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    Object.keys(employee).forEach(key => {
-      formData.append(key, employee[key]);
-    });
 
-    axios.post(API_BASE_URL, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-    .then(result => {
-      if (result.status === 201) {
-        navigate('/dashboard/employee');
-      } else {
-        alert("Failed to add employee");
-      }
-    })
-    .catch(err => console.error('Error adding employee:', err));
-  }
+    axios.post('http://localhost:5000/api/v1/emp/employees', employee)
+        .then(result => {
+            if(result.data) {
+                navigate('/dashboard');
+            } else {
+                alert(result.data.error);
+            }
+        })
+
+};
 
   return (
     <div className="d-flex justify-content-center align-items-center mt-3">
@@ -45,21 +34,35 @@ const AddEmployee = () => {
         <h3 className="text-center">Add Employee</h3>
         <form className="row g-1" onSubmit={handleSubmit}>
           <div className="col-12">
-            <label for="inputName" className="form-label">
-              Name
+            <label htmlFor ="inputFirstName" className="form-label">
+              First Name
             </label>
             <input
               type="text"
               className="form-control rounded-0"
-              id="inputName"
-              placeholder="Enter Name"
+              id="inputFirstName"
+              placeholder="Enter First Name"
               onChange={(e) =>
-                setEmployee({ ...employee, name: e.target.value })
+                setEmployee({ ...employee, firstname: e.target.value })
               }
             />
           </div>
           <div className="col-12">
-            <label for="inputEmail4" className="form-label">
+            <label htmlFor ="inputLastName" className="form-label">
+              Last Name
+            </label>
+            <input
+              type="text"
+              className="form-control rounded-0"
+              id="inputLastName"
+              placeholder="Enter Last Name"
+              onChange={(e) =>
+                setEmployee({ ...employee, lastname: e.target.value })
+              }
+            />
+          </div>
+          <div className="col-12">
+            <label htmlFor ="inputEmail4" className="form-label">
               Email
             </label>
             <input
@@ -74,58 +77,37 @@ const AddEmployee = () => {
             />
           </div>
           <div className="col-12">
-            <label for="inputPassword4" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              className="form-control rounded-0"
-              id="inputPassword4"
-              placeholder="Enter Password"
-              onChange={(e) =>
-                setEmployee({ ...employee, password: e.target.value })
-              }
-            />
-            <label for="inputSalary" className="form-label">
+            <label htmlFor="inputSalary" className="form-label">
               Salary
             </label>
             <input
-              type="text"
+              type="number"
               className="form-control rounded-0"
               id="inputSalary"
               placeholder="Enter Salary"
               autoComplete="off"
-              onChange={(e) =>
-                setEmployee({ ...employee, salary: e.target.value })
-              }
+              onChange={(e) => setEmployee({ ...employee, salary: e.target.value })}
             />
           </div>
+
           <div className="col-12">
-            <label for="inputAddress" className="form-label">
-              Address
+            <label htmlFor="inputGender" className="form-label">
+              Gender
             </label>
-            <input
-              type="text"
-              className="form-control rounded-0"
-              id="inputAddress"
-              placeholder="1234 Main St"
-              autoComplete="off"
+            <select
+              className="form-select rounded-0"
+              id="inputGender"
               onChange={(e) =>
-                setEmployee({ ...employee, address: e.target.value })
+                setEmployee({ ...employee, gender: e.target.value })
               }
-            />
-          </div>
-          <div className="col-12 mb-3">
-            <label className="form-label" for="inputGroupFile01">
-              Select Image
-            </label>
-            <input
-              type="file"
-              className="form-control rounded-0"
-              id="inputGroupFile01"
-              name="image"
-              onChange={(e) => setEmployee({...employee, image: e.target.files[0]})}
-            />
+              defaultValue="">
+              <option value="" disabled>
+                Select Gender
+              </option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
           <div className="col-12">
             <button type="submit" className="btn btn-primary w-100">
