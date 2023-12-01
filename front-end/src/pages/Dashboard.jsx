@@ -78,20 +78,24 @@ const Dashboard = () => {
         <table className='table'>
           <thead>
             <tr>
-              <th>Employee First Name</th>
-              <th>Employee Last Name</th>
-              <th>Employee Email Id</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email Id</th>
+              <th>Gender Id</th>
+              <th>Salary Id</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {employees.map(employee => (
               <tr key={employee.id}>
-                <td>{employee.firstName}</td>
-                <td>{employee.lastName}</td>
+                <td>{employee.firstname}</td>
+                <td>{employee.lastname}</td>
                 <td>{employee.email}</td>
+                <td>{employee.gender}</td>
+                <td>{employee.salary}</td>
                 <td>
-                  <Link to={`/edit-employee/${employee.id}`} className='btn btn-info'>Update</Link>
+                  <Link to={`/dashboard/edit_employee/${employee._id}`} className='btn btn-info'>Update</Link>
                   <button onClick={() => handleDelete(employee.id)} className='btn btn-danger'>Delete</button>
                   <Link to={`/view-employee/${employee.id}`} className='btn btn-secondary'>View</Link>
                 </td>

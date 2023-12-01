@@ -30,7 +30,7 @@ const Employee = () => {
   };
 
   if (loading) return <div>Loading...</div>;
-
+/*
   return (
     <div className="px-5 mt-3">
       <div className="d-flex justify-content-center">
@@ -43,10 +43,10 @@ const Employee = () => {
         <table className="table">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Image</th>
+              <th>First Name</th>
+              <th>Last Name</th>
               <th>Email</th>
-              <th>Address</th>
+              <th>Gender</th>
               <th>Salary</th>
               <th>Action</th>
             </tr>
@@ -54,16 +54,10 @@ const Employee = () => {
           <tbody>
             {employees.map((e) => (
               <tr key={e.id}>
-                <td>{e.name}</td>
-                <td>
-                  <img
-                    src={`${API_BASE_URL}Images/${e.image}`}
-                    className="employee_image"
-                    alt={e.name}
-                  />
-                </td>
+                <td>{e.firstname}</td>
+                <td>{e.lastname}</td>
                 <td>{e.email}</td>
-                <td>{e.address}</td>
+                <td>{e.gender}</td>
                 <td>{e.salary}</td>
                 <td>
                   <Link
@@ -85,7 +79,7 @@ const Employee = () => {
         </table>
       </div>
     </div>
-  );
+  );*/
 };
 
 export default Employee;

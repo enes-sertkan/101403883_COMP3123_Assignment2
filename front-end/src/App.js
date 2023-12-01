@@ -24,7 +24,7 @@ function App() {
           {/* Nested routes within dashboard */}
           <Route index element={<Employee />} />
           <Route path='add_employee' element={<AddEmployee />} /> {/* Removed 'dashboard/' */}
-          <Route path='edit_employee/:id' element={<EditEmployee />} /> {/* Removed 'dashboard/' */}
+          <Route path='/dashboard/edit_employee/:id' element={<EditEmployee />} /> {/* Removed 'dashboard/' */}
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,144 +1,134 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 const EditEmployee = () => {
-    const {id} = useParams()
+    const { id } = useParams();
     const [employee, setEmployee] = useState({
-        name: "",
+        firstname: "",
+        lastname: "",
         email: "",
-        salary: "",
-        address: "",
-        category_id: "",
-      });
-      const [category, setCategory] = useState([])
-      const navigate = useNavigate()
+        gender: "",
+        salary: 0,
+    });
+    const navigate = useNavigate();
 
-      useEffect(()=> {
-        axios.get('http://localhost:5000/api/v1/user/category')
-        .then(result => {
-            if(result.data.Status) {
-                setCategory(result.data.Result);
-            } else {
-                alert(result.data.Error)
-            }
-        }).catch(err => console.log(err))
-
-        axios.get('http://localhost:5000/api/v1/user/employee/'+id)
-        .then(result => {
-            setEmployee({
-                ...employee,
-                name: result.data.Result[0].name,
-                email: result.data.Result[0].email,
-                address: result.data.Result[0].address,
-                salary: result.data.Result[0].salary,
-                category_id: result.data.Result[0].category_id,
-            })
-        }).catch(err => console.log(err))
-    }, [])
+    useEffect(() => {
+      if (id) {
+          axios.get(`http://localhost:5000/api/v1/emp/employees/${id}`)
+          .then(response => {
+              setEmployee(response.data);
+          })
+          .catch(err => console.log(err));
+      }
+  }, [id]);
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        axios.put('http://localhost:5000/api/v1/user/edit_employee/'+id, employee)
-        .then(result => {
-            if(result.data.Status) {
-                navigate('/dashboard/employee')
+        e.preventDefault();
+        axios.put(`http://localhost:5000/api/v1/emp/employees/${id}`, employee)
+        .then(response => {
+            if (response.status === 200) {
+                navigate('/dashboard/employee');
             } else {
-                alert(result.data.Error)
+                alert("Failed to update employee");
             }
-        }).catch(err => console.log(err))
-    }
-
-  return (
-    <div className="d-flex justify-content-center align-items-center mt-3">
-      <div className="p-3 rounded w-50 border">
-        <h3 className="text-center">Edit Employee</h3>
-        <form className="row g-1" onSubmit={handleSubmit}>
-          <div className="col-12">
-            <label for="inputName" className="form-label">
-              Name
-            </label>
-            <input
-              type="text"
-              className="form-control rounded-0"
-              id="inputName"
-              placeholder="Enter Name"
-              value={employee.name}
-              onChange={(e) =>
-                setEmployee({ ...employee, name: e.target.value })
-              }
-            />
-          </div>
-          <div className="col-12">
-            <label for="inputEmail4" className="form-label">
-              Email
-            </label>
-            <input
-              type="email"
-              className="form-control rounded-0"
-              id="inputEmail4"
-              placeholder="Enter Email"
-              autoComplete="off"
-              value={employee.email}
-              onChange={(e) =>
-                setEmployee({ ...employee, email: e.target.value })
-              }
-            />
-          </div>
-          <div className='col-12'>
-            <label for="inputSalary" className="form-label">
-              Salary
-            </label>
-            <input
-              type="text"
-              className="form-control rounded-0"
-              id="inputSalary"
-              placeholder="Enter Salary"
-              autoComplete="off"
-              value={employee.salary}
-              onChange={(e) =>
-                setEmployee({ ...employee, salary: e.target.value })
-              }
-            />
-          </div>
-          <div className="col-12">
-            <label for="inputAddress" className="form-label">
-              Address
-            </label>
-            <input
-              type="text"
-              className="form-control rounded-0"
-              id="inputAddress"
-              placeholder="1234 Main St"
-              autoComplete="off"
-              value={employee.address}
-              onChange={(e) =>
-                setEmployee({ ...employee, address: e.target.value })
-              }
-            />
-          </div>
-          <div className="col-12">
-            <label for="category" className="form-label">
-              Category
-            </label>
-            <select name="category" id="category" className="form-select"
-                onChange={(e) => setEmployee({...employee, category_id: e.target.value})}>
-              {category.map((c) => {
-                return <option value={c.id}>{c.name}</option>;
-              })}
-            </select>
-          </div>
-
-          <div className="col-12">
-            <button type="submit" className="btn btn-primary w-100">
-              Edit Employee
-            </button>
-          </div>
-        </form>
+        })
+        .catch(err => {
+            console.error('Error updating employee:', err);
+            alert(err.response.data.message);
+        });
+    };
+    return (
+      <div className="d-flex justify-content-center align-items-center mt-3">
+        <div className="p-3 rounded w-50 border">
+          <h3 className="text-center">Edit Employee</h3>
+          <form className="row g-1" onSubmit={handleSubmit}>
+            <div className="col-12">
+              <label htmlFor ="inputFirstName" className="form-label">
+                First Name
+              </label>
+              <input
+                type="text"
+                className="form-control rounded-0"
+                id="inputFirstName"
+                placeholder="Enter First Name"
+                onChange={(e) =>
+                  setEmployee({ ...employee, firstname: e.target.value })
+                }
+              />
+            </div>
+            <div className="col-12">
+              <label htmlFor ="inputLastName" className="form-label">
+                Last Name
+              </label>
+              <input
+                type="text"
+                className="form-control rounded-0"
+                id="inputLastName"
+                placeholder="Enter Last Name"
+                onChange={(e) =>
+                  setEmployee({ ...employee, lastname: e.target.value })
+                }
+              />
+            </div>
+            <div className="col-12">
+              <label htmlFor ="inputEmail4" className="form-label">
+                Email
+              </label>
+              <input
+                type="email"
+                className="form-control rounded-0"
+                id="inputEmail4"
+                placeholder="Enter Email"
+                autoComplete="off"
+                onChange={(e) =>
+                  setEmployee({ ...employee, email: e.target.value })
+                }
+              />
+            </div>
+            <div className="col-12">
+              <label htmlFor="inputSalary" className="form-label">
+                Salary
+              </label>
+              <input
+                type="number"
+                className="form-control rounded-0"
+                id="inputSalary"
+                placeholder="Enter Salary"
+                autoComplete="off"
+                onChange={(e) => setEmployee({ ...employee, salary: e.target.value })}
+              />
+            </div>
+  
+            <div className="col-12">
+              <label htmlFor="inputGender" className="form-label">
+                Gender
+              </label>
+              <select
+                className="form-select rounded-0"
+                id="inputGender"
+                onChange={(e) =>
+                  setEmployee({ ...employee, gender: e.target.value })
+                }
+                defaultValue="">
+                <option value="" disabled>
+                  Select Gender
+                </option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div className="col-12">
+              <button type="submit" className="btn btn-primary w-100">
+                Add Employee
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  )
-}
+    );
+  };
 
 export default EditEmployee
