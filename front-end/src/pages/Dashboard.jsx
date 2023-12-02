@@ -26,7 +26,7 @@ const Dashboard = () => {
   };
 
   const handleDelete = (employeeId) => {
-    axios.delete(`http://localhost:5000/api/v1/emp/employees?eid=${employeeId}`)
+    axios.delete(`http://localhost:5000/api/v1/emp/employees/${employeeId}`)
       .then(() => {
         setEmployees(employees.filter(employee => employee._id !== employeeId));
       })
