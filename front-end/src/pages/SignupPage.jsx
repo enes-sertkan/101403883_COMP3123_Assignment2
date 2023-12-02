@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // Import Link here
 import axios from 'axios';
 import "bootstrap-icons/font/bootstrap-icons.css";
 
@@ -95,6 +96,9 @@ const SignupPage = () => {
                     />
                 </div>
                 <button type="submit">Sign Up</button>
+                <div className="login-link">
+                    <p>Already have an account? <Link to="/">Login here</Link></p>
+                </div>
             </form>
         </div>
     );

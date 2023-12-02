@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './style.css'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 const Login = () => {
@@ -57,7 +57,12 @@ const Login = () => {
                     />
                 </div>
                 <button type="submit">Login</button>
+            
                 {error && <p>{error}</p>}
+
+                <div className="signup-link">
+                    <p>Not registered yet? <Link to="/signup">Sign up here</Link></p>
+                </div>
             </form>
         </div>
     );

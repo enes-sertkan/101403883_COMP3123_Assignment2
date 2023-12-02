@@ -17,14 +17,11 @@ function App() {
       <Routes>
         <Route path='/' element={<LoginPage />} />
         <Route path='/signup' element={<SignupPage />} />
-        <Route path='/employee_detail/:id' element={<EmployeeDetails />} />
-
-        {/* Dashboard as a parent route */}
+        <Route path='/employee/:id' element={<EmployeeDetails />} />
         <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>}>
-          {/* Nested routes within dashboard */}
           <Route index element={<Employee />} />
-          <Route path='add_employee' element={<AddEmployee />} /> {/* Removed 'dashboard/' */}
-          <Route path='/dashboard/edit_employee/:id' element={<EditEmployee />} /> {/* Removed 'dashboard/' */}
+          <Route path='add_employee' element={<AddEmployee />} />
+          <Route path='edit_employee/:id' element={<EditEmployee />} />
         </Route>
       </Routes>
     </BrowserRouter>

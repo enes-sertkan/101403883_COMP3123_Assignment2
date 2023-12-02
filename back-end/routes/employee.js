@@ -53,7 +53,7 @@ routes.put("/employees/:eid", async (req, res) => {
     }
 })
 //{eid}
-routes.delete("/employees", async (req, res) => {
+routes.delete("/employees/:eid", async (req, res) => {
     try {
         const empId = req.query.eid;
         const empDelete = await employee.findByIdAndDelete(empId);

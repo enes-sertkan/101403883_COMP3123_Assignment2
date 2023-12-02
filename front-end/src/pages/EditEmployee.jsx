@@ -29,7 +29,7 @@ const EditEmployee = () => {
         axios.put(`http://localhost:5000/api/v1/emp/employees/${id}`, employee)
         .then(response => {
             if (response.status === 200) {
-                navigate('/dashboard/employee');
+                navigate('/dashboard');
             } else {
                 alert("Failed to update employee");
             }
@@ -122,7 +122,7 @@ const EditEmployee = () => {
             </div>
             <div className="col-12">
               <button type="submit" className="btn btn-primary w-100">
-                Add Employee
+                Update Employee
               </button>
             </div>
           </form>

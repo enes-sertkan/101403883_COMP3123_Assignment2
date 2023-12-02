@@ -111,7 +111,7 @@ const AddEmployee = () => {
           </div>
           <div className="col-12">
             <button type="submit" className="btn btn-primary w-100">
-              Update Employee
+              Add Employee
             </button>
           </div>
         </form>

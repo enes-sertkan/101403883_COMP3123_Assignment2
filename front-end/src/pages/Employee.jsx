@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 const API_BASE_URL = 'http://localhost:5000/api/v1/emp/'; // Adjust this URL based on your server setup
@@ -18,16 +17,6 @@ const Employee = () => {
       })
       .catch(error => console.error('Error fetching employees:', error));
   }, []);
-
-  // Delete an employee
-  const deleteEmployee = (employeeId) => {
-    axios.delete(`${API_BASE_URL}employees?eid=${employeeId}`)
-      .then(response => {
-        // Refresh the employee list or update the state directly
-        setEmployees(employees.filter(e => e.id !== employeeId));
-      })
-      .catch(error => console.error('Error deleting employee:', error));
-  };
 
   if (loading) return <div>Loading...</div>;
 /*

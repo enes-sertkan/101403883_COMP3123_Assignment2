@@ -26,42 +26,35 @@ const Dashboard = () => {
   };
 
   const handleDelete = (employeeId) => {
-    // Replace with your actual API URL to delete an employee
-    axios.delete(`http://localhost:5000/api/v1/emp/employees/${employeeId}`)
+    axios.delete(`http://localhost:5000/api/v1/emp/employees?eid=${employeeId}`)
       .then(() => {
-        // Remove deleted employee from state
-        setEmployees(employees.filter(employee => employee.id !== employeeId));
+        setEmployees(employees.filter(employee => employee._id !== employeeId));
       })
       .catch(error => {
         console.error('There was an error deleting the employee:', error);
       });
   };
+  
 
   const handleLogout = () => {
-    // Make an API call to logout the user
-    axios.post('http://localhost:5000/api/v1/user/logout')
-      .then(() => {
-        // Clear user data from local storage or state management
-        localStorage.removeItem('userToken'); // Example, adjust based on how you store the token
+    // Remove the token or user data from storage
+    localStorage.removeItem('userToken'); // Adjust this according to your token storage method
 
-        // Redirect to login page
-        navigate('/login');
-      })
-      .catch(error => {
-        console.error('Logout failed:', error);
-      });
+    // Redirect to the login page
+    navigate('/');
   };
-
 
   return (
     <div className='dashboard-container'>
       <nav className='sidebar bg-dark text-white'>
         <div className='brand'>
-          <h2>My Company</h2>
+          <h2>Hardbloods</h2>
         </div>
         <ul className='nav-list'>
           <li>
-            <Link to='/dashboard' className='nav-item'>Dashboard</Link>
+          <button className='nav-item btn btn-link text-white text-decoration-none'>
+              <Link to='/dashboard' className='text-white text-decoration-none'>Dashboard</Link>
+            </button>
           </li>
           {/* Other navigation links */}
           <li>
@@ -96,8 +89,8 @@ const Dashboard = () => {
                 <td>{employee.salary}</td>
                 <td>
                   <Link to={`/dashboard/edit_employee/${employee._id}`} className='btn btn-info'>Update</Link>
-                  <button onClick={() => handleDelete(employee.id)} className='btn btn-danger'>Delete</button>
-                  <Link to={`/view-employee/${employee.id}`} className='btn btn-secondary'>View</Link>
+                  <button onClick={() => handleDelete(employee._id)} className='btn btn-danger'>Delete</button>
+                  <Link to={`/employee/${employee._id}`} className='btn btn-secondary'>View</Link>
                 </td>
               </tr>
             ))}
