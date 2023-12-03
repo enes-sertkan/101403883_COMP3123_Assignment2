@@ -7,11 +7,11 @@ const SERVER_PORT = 5000;
 
 const cors = require('cors');
 app.use(cors(
-    {
-        origin: ["https://employee-management-app-sepia.vercel.app"],
-        methods: ["POST", "GET", "PUT", "DELETE"],
-        credentials: true
-    }
+    // {
+    //     origin: ["https://employee-management-app-sepia.vercel.app"],
+    //     methods: ["POST", "GET", "PUT", "DELETE"],
+    //     credentials: true
+    // }
 ));
 
 // Middleware JSON parsing

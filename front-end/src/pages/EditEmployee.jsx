@@ -16,7 +16,7 @@ const EditEmployee = () => {
 
     useEffect(() => {
       if (id) {
-          axios.get(`https://employee-management-app-sepia.vercel.app/api/v1/emp/employees/${id}`)
+          axios.get(`http://localhost:5000/api/v1/emp/employees/${id}`)
           .then(response => {
               setEmployee(response.data);
           })
@@ -26,7 +26,7 @@ const EditEmployee = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put(`https://employee-management-app-sepia.vercel.app/api/v1/emp/employees/${id}`, employee)
+        axios.put(`http://localhost:5000/api/v1/emp/employees/${id}`, employee)
         .then(response => {
             if (response.status === 200) {
                 navigate('/dashboard');

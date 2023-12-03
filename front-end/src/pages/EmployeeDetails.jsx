@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-const API_URL = 'https://employee-management-app-sepia.vercel.app/api/v1/emp/';
+const API_URL = 'http://localhost:5000/api/v1/emp/';
 
 const EmployeeDetail = () => {
   const [employee, setEmployee] = useState(null); // null initially

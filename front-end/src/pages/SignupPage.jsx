@@ -23,7 +23,7 @@ const SignupPage = () => {
 
         try {
             // Ensure the URL points to the correct backend endpoint
-            const response = await axios.post('https://employee-management-app-sepia.vercel.app/api/v1/user/signup', {
+            const response = await axios.post('http://localhost:5000/api/v1/user/signup', {
                 username, 
                 email, 
                 password
