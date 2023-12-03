@@ -7,7 +7,6 @@ import Dashboard from './pages/Dashboard';
 import AddEmployee from './pages/AddEmployee';
 import EditEmployee from './pages/EditEmployee';
 import EmployeeDetails from './pages/EmployeeDetails';
-import Employee from './pages/Employee';
 import PrivateRoute from './pages/PrivateRoute.jsx';
 import './pages/style.css';
 
@@ -19,7 +18,6 @@ function App() {
         <Route path='/signup' element={<SignupPage />} />
         <Route path='/employee/:id' element={<EmployeeDetails />} />
         <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>}>
-          <Route index element={<Employee />} />
           <Route path='add_employee' element={<AddEmployee />} />
           <Route path='edit_employee/:id' element={<EditEmployee />} />
         </Route>

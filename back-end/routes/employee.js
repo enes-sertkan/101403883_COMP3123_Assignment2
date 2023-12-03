@@ -55,7 +55,7 @@ routes.put("/employees/:eid", async (req, res) => {
 //{eid}
 routes.delete("/employees/:eid", async (req, res) => {
     try {
-        const empId = req.query.eid;
+        const empId = req.params.eid;
         const empDelete = await employee.findByIdAndDelete(empId);
 
         if (!empDelete) {
@@ -66,5 +66,6 @@ routes.delete("/employees/:eid", async (req, res) => {
     } catch (e) {
         return res.status(400).json({ error: e.message });
     }
-})
+});
+
 module.exports = routes;

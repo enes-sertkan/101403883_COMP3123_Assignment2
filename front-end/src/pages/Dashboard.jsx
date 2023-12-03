@@ -15,7 +15,6 @@ const Dashboard = () => {
   }, []);
 
   const fetchEmployees = () => {
-    // Replace with your actual API URL to fetch employees
     axios.get('http://localhost:5000/api/v1/emp/employees')
       .then(response => {
         setEmployees(response.data);
@@ -37,10 +36,8 @@ const Dashboard = () => {
   
 
   const handleLogout = () => {
-    // Remove the token or user data from storage
-    localStorage.removeItem('userToken'); // Adjust this according to your token storage method
+    localStorage.removeItem('userToken');
 
-    // Redirect to the login page
     navigate('/');
   };
 
@@ -56,7 +53,6 @@ const Dashboard = () => {
               <Link to='/dashboard' className='text-white text-decoration-none'>Dashboard</Link>
             </button>
           </li>
-          {/* Other navigation links */}
           <li>
             <button onClick={handleLogout} className='nav-item btn btn-link text-white text-decoration-none'>
               Logout
@@ -67,7 +63,7 @@ const Dashboard = () => {
       
       <div className='main-content'>
         <h1>Employee Management App</h1>
-        <Link to='add_employee' className='btn btn-primary my-3'>Add Employee</Link> {/* Remove './' */}
+        <Link to='add_employee' className='btn btn-primary my-3'>Add Employee</Link>
         <table className='table'>
           <thead>
             <tr>

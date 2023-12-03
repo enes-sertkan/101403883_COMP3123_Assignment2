@@ -18,8 +18,7 @@ services:
   #     - fullstack
   #   restart: unless-stopped
   #   depends_on:
-  #     - mongo
-  
+  #     - mongo  
 
   backend:
     build: 
@@ -31,17 +30,17 @@ services:
     environment:
       DB_CONNECTION_STRING: 'mongodb+srv://enessertkan:Password123@cluster0.55mfjdg.mongodb.net/?retryWrites=true&w=majority'
     restart: unless-stopped
-  #   depends_on:
-  #     - mongo
+    depends_on:
+      - mongo
 
-  # mongo:
-  #   image: mongo
-  #   ports:
-  #     - "27017:27017"
-  #   networks:
-  #     - fullstack
-  #   volumes:
-  #     - mongo-data:/data/db
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - fullstack
+    volumes:
+      - mongo-data:/data/db
 
 networks: 
   fullstack:
