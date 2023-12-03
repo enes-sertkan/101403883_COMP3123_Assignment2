@@ -1,14 +1,14 @@
 /* Login Page Container Styling */
-.loginPage {
+.login-container {
   display: flex;
   justify-content: center; /* Horizontally center the content */
   align-items: center; /* Vertically center the content */
   height: 100vh; /* Full viewport height */
-  /* ... other styles for .loginPage ... */
+  background: linear-gradient(rgba(11, 11, 11, 0.5), rgba(10, 10, 10, 0.5));
 }
 
 /* Login Form Styling */
-.loginPage form { /* Targeting the form within .loginPage */
+.login-container form {
   background-color: rgba(1, 32, 93, 0.85); /* Slightly more transparency for depth */
   color: white;
   padding: 2rem; /* Spacing around the form */
@@ -20,29 +20,30 @@
 }
 
 /* Form Headings */
-.loginPage h2 {
+.login-container h2 {
   margin-bottom: 1rem;
   color: #f0ad4e; /* A warm color for the heading */
 }
 
 /* Form Input Fields */
-.loginPage input[type="text"],
-.loginPage input[type="password"] {
+.login-container input[type="text"],
+.login-container input[type="password"] {
   border: none;
   border-bottom: 2px solid #f0ad4e; /* Highlighted bottom border */
   background-color: transparent;
   margin-bottom: 1rem;
   padding: 0.5rem 0;
+  color: white; /* White text color for inputs */
 }
 
 /* Form Input Labels */
-.loginPage label {
+.login-container label {
   display: block;
   margin-bottom: 0.5rem;
 }
 
 /* Login Button */
-.loginPage button {
+.login-container button {
   background-color: #28a745; /* Green color */
   border: none;
   padding: 0.6rem 1rem;
@@ -51,15 +52,16 @@
   border-radius: 4px;
 }
 
-.loginPage button:hover {
+.login-container button:hover {
   background-color: #218838; /* Darker shade for hover */
 }
 
 /* Error Message Styling */
-.text-warning {
+.error {
   color: #dc3545; /* Red color for errors */
   margin-bottom: 1rem;
 }
+
 
 
 

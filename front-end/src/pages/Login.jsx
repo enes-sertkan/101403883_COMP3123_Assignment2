@@ -34,9 +34,11 @@ const Login = () => {
     };
 
     return (
-        <div className="loginPage">
+        <div className="login-container">
             <form onSubmit={handleSubmit}>
-                <div>
+                <h2>Login</h2>
+                {error && <p className="error">{error}</p>}
+                <div className="form-group">
                     <label htmlFor="username">Username:</label>
                     <input
                         type="text"
@@ -44,9 +46,10 @@ const Login = () => {
                         name="username"
                         value={values.username}
                         onChange={handleChange}
+                        required
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label htmlFor="password">Password:</label>
                     <input
                         type="password"
@@ -54,18 +57,18 @@ const Login = () => {
                         name="password"
                         value={values.password}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <button type="submit">Login</button>
-            
-                {error && <p>{error}</p>}
-
                 <div className="signup-link">
                     <p>Not registered yet? <Link to="/signup">Sign up here</Link></p>
                 </div>
             </form>
         </div>
     );
+    
+    
 };
 
 
