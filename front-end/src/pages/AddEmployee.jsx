@@ -17,7 +17,7 @@ const AddEmployee = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost:5000/api/v1/emp/employees', employee)
+    axios.post('https://employee-management-app-sepia.vercel.app/api/v1/emp/employees', employee)
         .then(result => {
             if(result.data) {
                 navigate('/dashboard');

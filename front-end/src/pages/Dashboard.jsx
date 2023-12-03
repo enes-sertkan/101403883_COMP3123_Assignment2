@@ -15,7 +15,7 @@ const Dashboard = () => {
   }, []);
 
   const fetchEmployees = () => {
-    axios.get('http://localhost:5000/api/v1/emp/employees')
+    axios.get('https://employee-management-app-sepia.vercel.app/api/v1/emp/employees')
       .then(response => {
         setEmployees(response.data);
       })
@@ -25,7 +25,7 @@ const Dashboard = () => {
   };
 
   const handleDelete = (employeeId) => {
-    axios.delete(`http://localhost:5000/api/v1/emp/employees/${employeeId}`)
+    axios.delete(`https://employee-management-app-sepia.vercel.app/api/v1/emp/employees/${employeeId}`)
       .then(() => {
         setEmployees(employees.filter(employee => employee._id !== employeeId));
       })

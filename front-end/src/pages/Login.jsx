@@ -20,7 +20,7 @@ const Login = () => {
         event.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5000/api/v1/user/login', values);
+            const response = await axios.post('https://employee-management-app-sepia.vercel.app/api/v1/user/login', values);
             if (response.data.status) {
                 localStorage.setItem("valid", true);
                 navigate('/dashboard');

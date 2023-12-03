@@ -7,9 +7,10 @@ const SERVER_PORT = 5000;
 
 const cors = require('cors');
 app.use(cors(
-    {origin: ["https://deploy-mern-1whq.vercel.app"],
-    methods: ["POST", "GET", "PUT", "DELETE"],
-    credentials: true 
+    {
+        origin: [""],
+        methods: ["POST", "GET", "PUT", "DELETE"],
+        credentials: true
     }
 ));
 
