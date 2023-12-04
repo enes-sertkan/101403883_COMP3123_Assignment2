@@ -6,7 +6,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 const Login = () => {
     const [values, setValues] = useState({
-        username: '', // Changed from email to username
+        username: '',
         password: ''
     });
     const [error, setError] = useState(null);

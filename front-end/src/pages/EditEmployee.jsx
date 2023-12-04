@@ -25,7 +25,30 @@ const EditEmployee = () => {
   }, [id]);
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+      e.preventDefault();
+
+      // Validation
+      const { firstname, lastname, email, gender, salary } = employee;
+      if (!firstname) {
+          alert("Please fill all the fields, first name is empty.");
+          return;
+      }
+      if (!lastname) {
+          alert("Please fill all the fields, last name is empty.");
+          return;
+      }
+      if (!email) {
+          alert("Please fill all the fields, email is empty.");
+          return;
+      }
+      if (!gender) {
+          alert("Please fill all the fields, gender is not selected.");
+          return;
+      }
+      if (salary === 0) {
+          alert("Please fill all the fields, salary is not set.");
+          return;
+      }
         axios.put(`http://localhost:5000/api/v1/emp/employees/${id}`, employee)
         .then(response => {
             if (response.status === 200) {
